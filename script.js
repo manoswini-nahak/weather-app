@@ -24,9 +24,24 @@ function getWeather() {
             document.getElementById("temp").innerText = `🌡 Temperature: ${data.main.temp} °C`;
             document.getElementById("humidity").innerText = `💧 Humidity: ${data.main.humidity}%`;
             document.getElementById("wind").innerText = `💨 Wind Speed: ${data.wind.speed} m/s`;
+
+            updateBackground(data.main.temp);
         })
         .catch(error => {
             alert(error.message); // Show the specific error (e.g., "Invalid API key")
             console.error("Error fetching weather data:", error);
         });
+}
+
+function updateBackground(temp) {
+    const body = document.body;
+    body.className = ""; // Clear existing classes
+
+    if (temp > 25) {
+        body.classList.add("sunny");
+    } else if (temp >= 10) {
+        body.classList.add("cloudy");
+    } else {
+        body.classList.add("snowy");
+    }
 }
