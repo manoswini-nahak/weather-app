@@ -5,29 +5,151 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
+    /* Prevent scrollbars from animations */
+    transition: background 1s ease;
+}
+
+/* Sunny Animation (Hot > 25°C) */
+body.sunny {
+    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+    /* warm sunset */
+    position: relative;
+}
+
+body.sunny::before {
+    content: "☀️";
+    font-size: 100px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    animation: rotateSun 10s linear infinite;
+}
+
+@keyframes rotateSun {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Cloudy Animation (Mild 10°C - 25°C) */
+body.cloudy {
+    background: linear-gradient(to top, #89f7fe, #66a6ff);
+    /* cool blue */
+    position: relative;
+}
+
+body.cloudy::after {
+    content: "☁️";
+    font-size: 120px;
+    position: absolute;
+    top: 20%;
+    left: -100px;
+    opacity: 0.8;
+    animation: floatCloud 15s linear infinite;
+}
+
+body.cloudy::before {
+    content: "☁️";
+    font-size: 80px;
+    position: absolute;
+    top: 10%;
+    left: -80px;
+    opacity: 0.6;
+    animation: floatCloud 20s linear infinite reverse;
+}
+
+@keyframes floatCloud {
+    0% {
+        left: -150px;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Snowy Animation (Cold < 10°C) */
+body.snowy {
+    background: linear-gradient(to bottom, #e6dada, #274046);
+    /* icy cold */
+    position: relative;
+}
+
+body.snowy::after {
+    content: "❄️";
+    font-size: 50px;
+    position: absolute;
+    top: -50px;
+    left: 20%;
+    animation: fallSnow 4s linear infinite;
+}
+
+body.snowy::before {
+    content: "❄️";
+    font-size: 30px;
+    position: absolute;
+    top: -50px;
+    left: 70%;
+    animation: fallSnow 6s linear infinite;
+    animation-delay: 2s;
+}
+
+@keyframes fallSnow {
+    0% {
+        top: -50px;
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    100% {
+        top: 100vh;
+        opacity: 0;
+        transform: rotate(360deg);
+    }
 }
 
 .weather-container {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    /* Keep it above animations */
 }
 
 input {
-    width: 80%;
-    padding: 8px;
-    margin-bottom: 10px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
 }
 
 button {
-    padding: 8px 15px;
+    width: 100%;
+    padding: 12px;
     cursor: pointer;
     border: none;
     background: #4CAF50;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #45a049;
 }
 
 .weather-info {
